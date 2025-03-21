@@ -1,38 +1,208 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Page</title>
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <title>Home Page</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f7fc;
+            /* Light blue background for a clean, modern look */
+        }
+
+        /* Main Container */
+        .container {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile Section */
+        .profile {
+            display: flex;
+            align-items: center;
+            background: #e7f3fe;
+            /* Light blue background for the profile */
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            background: gray;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            margin-left: 10px;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .user-balance {
+            display: flex;
+            align-items: center;
+            color: #555;
+        }
+
+        #toggle-icon {
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Middle Section */
+        .middle-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .scan-qr {
+            padding: 10px;
+            border: none;
+            background: #5c6bc0;
+            /* Soft blue */
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .scan-qr:hover {
+            background-color: #6151ad; /* Slightly darker gray-blue */
+        }
+
+        .upload-pic {
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #d03f3f;
+        }
+
+        /* .upload-pic:hover {
+            background-color: #3e484c; /* Slightly darker gray-blue */
+        
+
+        /* Transactions Section */
+        .transactions {
+            background: #e7f3fe;
+            /* Light blue background */
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .bar-graph {
+            background: white;
+            height: 100px;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 100px;
+            color: #999;
+            border-radius: 8px;
+        }
+                
+            /* Logout Section */
+        .logout-section {
+            display: flex;
+            justify-content: left;
+            margin-top: 20px;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            padding: 8px 12px;
+            background-color: #b0bec5; /* Soft grayish-blue */
+            color: #37474f; /* Dark gray */
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 12px;
+            border: 1px solid #90a4ae;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 50px;
+            text-align: center;
+        }
+
+        .logout-btn:hover {
+            background-color: #90a4ae; /* Slightly darker gray-blue */
+        }
+
+
+
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Register</h2>
-        <form action="#" method="post">
-            <div class="form-group">
-                <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" name="fullname" required>
+        <!-- Top Section: Profile -->
+        <div class="profile">
+            <div class="profile-pic"></div>
+            <div class="user-info">
+                <p class="user-name">kritika</p>
+                <p class="user-balance">
+                    Balance: <span id="balance-amount">Rs.5000</span>
+                    <span id="toggle-icon" onclick="toggleBalance()">👁️</span>
+                </p>
             </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
-            </div>
-            <button type="submit">Register</button>
-        </form>
+        </div>
+
+        <!-- Middle Section: QR Scan & Upload -->
+        <div class="middle-section">
+            <button class="scan-qr">Scan QR</button>
+            <input type="file" class="upload-pic">
+        </div>
+
+        <!-- Bottom Section: Past Transactions -->
+        <div class="transactions">
+            <h3>Past Transactions</h3>
+            <ul>
+                {% for transaction in transactions %}
+                <li>
+                    {{ transaction.timestamp|date:"M d, Y H:i" }} -
+                    <strong>{{ transaction.transaction_type|capfirst }}</strong>: Rs.{{ transaction.amount }}
+                </li>
+                {% empty %}
+                <li>No transactions available.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Logout Section -->
+        <div class="logout-section">
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
     </div>
+
+    <script>
+        function toggleBalance() {
+            let balance = document.getElementById("balance-amount");
+            let icon = document.getElementById("toggle-icon");
+            if (balance.style.display === "none") {
+                balance.style.display = "inline";
+                icon.textContent = "👁️";
+            } else {
+                balance.style.display = "none";
+                icon.textContent = "👁️";
+            }
+        }
+    </script>
 </body>
 
 </html>

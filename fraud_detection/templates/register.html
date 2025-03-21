@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Registration Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,12 +17,16 @@
             margin: 0;
         }
 
-        .login-container {
+        .aayush {
+            background-color: #218838;
+        }
+
+        .container {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 320px;
+            width: 300px;
             text-align: center;
         }
 
@@ -56,47 +60,24 @@
             border-radius: 5px;
             width: 100%;
             cursor: pointer;
-            margin-top: 10px;
         }
 
         button:hover {
             background-color: #218838;
         }
-
-        .extra-links {
-            margin-top: 10px;
-        }
-
-        .extra-links a {
-            text-decoration: none;
-            color: #28a745;
-        }
-
-        .extra-links a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        {% if messages %}
-        {% for message in messages %}
-        <p style="color: red;">{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        
+
+    <div class="container">
+        <h2>Register</h2>
         <form action="#" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Login</button>
-            <div class="extra-links">
-                <a href="#">Forgot Password?</a>
-                <span> | </span>
-                <a href="{% url 'register' %}">Create an Account</a>
-            </div>
+            <button type="submit">Register</button>
         </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
     </div>
 </body>
 

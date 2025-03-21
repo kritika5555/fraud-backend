@@ -1,0 +1,91 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+/* Main Container */
+.container {
+    width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Section */
+.profile {
+    display: flex;
+    align-items: center;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    background: gray;
+    border-radius: 50%;
+}
+
+.user-info {
+    margin-left: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.user-balance {
+    display: flex;
+    align-items: center;
+}
+
+#toggle-icon {
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+/* Middle Section */
+.middle-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.scan-qr {
+    padding: 10px;
+    border: none;
+    background: blue;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-pic {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Transactions Section */
+.transactions {
+    background: #ddd;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.bar-graph {
+    background: white;
+    height: 100px;
+    margin-top: 10px;
+    text-align: center;
+    line-height: 100px;
+}
